@@ -26,6 +26,7 @@ class ExpressServer {
   }
 
   _routes() {
+    // testing
     this.app.head("/status", (req, res) => {
       res.status(200).end();
     });
