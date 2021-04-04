@@ -26,7 +26,7 @@ class ExpressServer {
   }
 
   _routes() {
-    // testing
+    // testing cmd git flow
     this.app.head("/status", (req, res) => {
       res.status(200).end();
     });
