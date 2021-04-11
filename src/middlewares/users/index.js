@@ -1,7 +1,8 @@
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 const AppError = require("../../errors/appError");
 const userService = require("../../services/userService");
 const { ROLES } = require("../../constants");
+const { validationResult } = require("../commons");
 
 const _nameRequired = check("name", "Name is required").not().isEmpty();
 const _lastNameRequired = check("lastName", "Last Name is required")
@@ -47,14 +48,6 @@ const _optionalEmailExist = check("email")
     }
   });
 
-const _validationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new AppError("Validation Erros", 400, errors.errors);
-  }
-  next();
-};
-
 const postRequestValidations = [
   _nameRequired,
   _lastNameRequired,
@@ -64,7 +57,7 @@ const postRequestValidations = [
   _passwordRequired,
   _roleValid,
   _dateValid,
-  _validationResult,
+  validationResult,
 ];
 
 const putRequestValidations = [
@@ -75,7 +68,7 @@ const putRequestValidations = [
   _dateValid,
   _optionalEmailValid,
   _optionalEmailExist,
-  _validationResult,
+  validationResult,
 ];
 
 module.exports = {
